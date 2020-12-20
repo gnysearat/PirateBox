@@ -1,0 +1,27 @@
+version: '2.2'
+services:
+
+  qbittorrent:
+    image: "markusmcnugen/qbittorrentvpn"
+    container_name: "qbittorrent"
+    restart: "always"
+    privileged: true
+    environment:
+      - "VPN_ENABLED=yes"
+      - "LAN_NETWORK=192.168.1.0/24"
+      - "NAME_SERVERS=1.1.1.1,1.0.0.1"
+      - "WEBUI_PORT=8440"
+      - "TZ=America/Los_Angeles"
+    ports:
+      - 8440:8440
+      - 8999:8999
+      - 8999:8999/udp
+      - 9001:9000
+      - 9117:9117
+    volumes:
+      - qbittorrent_config:/config:cached
+      - 'D:\To Be Sorted:/downloads:cached'
+      
+volumes:
+  qbittorrent_config:
+    external: true
